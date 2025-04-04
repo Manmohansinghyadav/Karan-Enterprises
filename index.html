@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Karan Enterprises</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .customer-box {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .customer-item:hover {
+      background-color: #f8f9fa;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ✅ Navbar -->
+<div class="container my-3">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid d-flex flex-wrap">
+      <h1 class="me-auto fs-4">Karan Enterprises</h1>
+      <div class="ms-auto text-end">
+        <div id="current-date" class="fs-6"></div>
+        <div id="current-time" class="fs-5 fw-bold"></div>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<!-- ✅ Form Section -->
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="form-content p-4 border rounded shadow">
+        <h3 class="mb-4 text-center">Today's Entry</h3>
+        <form id="dataForm" name="google-sheet">
+          
+          <!-- ✅ Customer Search and Selection -->
+          <div class="mb-3">
+            <h5>Select Customer Name</h5>
+            <input type="text" id="customerSearch" class="form-control mb-2" placeholder="Search customer..."/>
+            <div id="customer-box" class="border p-2 rounded customer-box">
+              <!-- Customer List -->
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Rahul</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Ujwal</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Harsh</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Pardeep</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Mikku ke Mummy</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Shaurya</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Rakesh</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Pardeep Pahalad</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Sonhali</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Suraj</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Ajay</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Ayush</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Chandan</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Bhabi</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Dayachan-Ravi</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Amit</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Vidushi Education</div>
+              <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Preet</div>
+            </div>
+            <input type="hidden" id="selectedCustomer" name="customerName" required />
+          </div>
+
+          <!-- ✅ No. of Bottles -->
+          <div class="mb-3">
+            <h5>Select No. of Bottles</h5>
+            <select id="bottles" name="Bottles" class="form-select" required>
+              <option selected disabled value="">Select No. of Bottles</option>
+              <script>
+                for (let i = 1; i <= 10; i++) {
+                  document.write(`<option value="${i}">${i}</option>`);
+                }
+              </script>
+            </select>
+          </div>
+
+          <!-- ✅ Select Date -->
+          <div class="mb-3">
+            <h5>Select Date</h5>
+            <input type="date" id="entryDate" name="entryDate" class="form-control" />
+          </div>
+
+          <!-- ✅ Submit Button -->
+          <button type="submit" id="submitBtn" class="btn btn-primary w-100">
+            Submit
+            <span id="spinner" class="spinner-border spinner-border-sm ms-2 d-none"></span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Add New Customer Button -->
+<div class="text-center mt-3">
+  <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+    + Add New Customer
+  </button>
+</div>
+
+<!-- ✅ Modal: Coming Soon -->
+<div class="modal fade" id="addCustomerModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content text-center p-4">
+      <h5 class="mb-3">Coming Soon 🚧</h5>
+      <p class="text-muted">This feature will be available soon.</p>
+      <button class="btn btn-secondary mt-3" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Toast Notification -->
+<div class="position-fixed top-0 start-50 translate-middle-x p-3 mt-3" style="z-index: 1055">
+  
+  <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert">
+    <div class="d-flex">
+      <div class="toast-body">
+        ✅ Entry submitted successfully!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ JS Code -->
+<script>
+  // ✅ Select customer and highlight
+  function selectCustomer(el) {
+    document.querySelectorAll('.customer-item').forEach(item => item.classList.remove('bg-primary', 'text-white'));
+    el.classList.add('bg-primary', 'text-white');
+    document.getElementById('selectedCustomer').value = el.textContent.trim();
+  }
+
+  // ✅ Filter customers based on input
+  document.getElementById('customerSearch').addEventListener('input', function () {
+    const searchTerm = this.value.toLowerCase();
+    document.querySelectorAll('.customer-item').forEach(item => {
+      const name = item.textContent.toLowerCase();
+      item.style.display = name.includes(searchTerm) ? 'block' : 'none';
+    });
+  });
+
+  // ✅ Google Sheets Submission
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxA8p5FW01AFUx2li8AqZYxKgiqwntZ3_MPHTsmW06KK1tQ0AyvN-_ef5l8XoFpNZp90w/exec';
+  const form = document.forms['google-sheet'];
+  const submitBtn = document.getElementById('submitBtn');
+  const spinner = document.getElementById('spinner');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const selectedCustomer = document.getElementById('selectedCustomer').value.trim();
+    if (!selectedCustomer) {
+      alert('⚠️ Please select a customer.');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    spinner.classList.remove('d-none');
+
+    const dateInput = document.getElementById('entryDate');
+    if (!dateInput.value) {
+      const today = new Date().toISOString().split('T')[0];
+      dateInput.value = today;
+    }
+
+    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+      .then(res => res.json())
+      .then(data => {
+        if (data.result === 'success') {
+          form.reset();
+          document.querySelectorAll('.customer-item').forEach(item => item.classList.remove('bg-primary', 'text-white'));
+          new bootstrap.Toast(document.getElementById('successToast')).show();
+        }
+      })
+      .catch(err => {
+        console.error('❌ Error:', err);
+        alert('Something went wrong.');
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        spinner.classList.add('d-none');
+      });
+  });
+
+  // ✅ Live Date and Time
+  function updateTime() {
+    const now = new Date();
+    document.getElementById('current-date').textContent = now.toLocaleDateString('en-GB');
+    document.getElementById('current-time').textContent = now.toLocaleTimeString('en-US');
+  }
+  setInterval(updateTime, 1000);
+  updateTime();
+</script>
+
+<!-- ✅ Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
