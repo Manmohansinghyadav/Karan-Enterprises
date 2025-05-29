@@ -15,6 +15,36 @@
       background-color: #f8f9fa;
     }
   </style>
+  <style>
+  /* Static Rainbow Background */
+  body {
+  background: radial-gradient(circle at 20% 30%, red, transparent),
+              radial-gradient(circle at 80% 20%, orange, transparent),
+              radial-gradient(circle at 50% 70%, yellow, transparent),
+              radial-gradient(circle at 30% 90%, green, transparent),
+              radial-gradient(circle at 70% 80%, blue, transparent),
+              radial-gradient(circle at 40% 40%, indigo, transparent),
+              radial-gradient(circle at 60% 50%, violet, transparent);
+  background-color: #000; /* fallback or base color */
+  background-blend-mode: screen;
+}
+
+
+  .customer-box {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .customer-item:hover {
+    background-color: #f8f9fa;
+  }
+
+  /* Optional: Light background for the form box */
+  .form-content {
+    background-color: white;
+  }
+</style>
+
 </head>
 <body>
 
