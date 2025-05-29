@@ -167,7 +167,7 @@
   <p class="text-center text-muted mt-4">© 2025 Karan Enterprises. All rights reserved.</p>
 
 </div>
-
+<script src="config.js"></script>
 <!-- ✅ JS Code -->
 <script>
   // ✅ Select customer and highlight
@@ -187,7 +187,8 @@
   });
 
   // ✅ Google Sheets Submission
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbxA8p5FW01AFUx2li8AqZYxKgiqwntZ3_MPHTsmW06KK1tQ0AyvN-_ef5l8XoFpNZp90w/exec';
+  //'https://script.google.com/macros/s/AKfycbxA8p5FW01AFUx2li8AqZYxKgiqwntZ3_MPHTsmW06KK1tQ0AyvN-_ef5l8XoFpNZp90w/exec';//
+  const scriptURL = CONFIG.GOOGLE_SCRIPT_URL;
   const form = document.forms['google-sheet'];
   const submitBtn = document.getElementById('submitBtn');
   const spinner = document.getElementById('spinner');
