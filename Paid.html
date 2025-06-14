@@ -9,7 +9,7 @@
   <link rel="icon" href="image.png" type="image/x-icon">
   <title>Mark Customer as Paid - Karan Enterprises</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
-  
+
   <style>
     body {
       background: radial-gradient(circle at 20% 30%, red, transparent),
@@ -34,142 +34,202 @@
       max-width: 500px;
       width: 100%;
     }
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      padding: 8px 12px;
+      background-color: #f8f9fa;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .back-btn img {
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+    }
   </style>
-  <style>
-  .back-btn {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    padding: 8px 12px;
-    background-color: #f8f9fa;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-weight: bold;
-  }
-
-  .back-btn img {
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
-  }
-</style>
 </head>
 <body>
-    <!-- Back Button -->
-    <a href="index.html" class="back-btn">
-        <img src="arrow-left.png" alt="Back"> Back to Main
-    </a>
 
-    <!-- Form Container -->
+  <!-- Back Button -->
+  <a href="index.html" class="back-btn">
+    <img src="arrow-left.png" alt="Back"> Back to Main
+  </a>
+
+  <!-- Form Container -->
   <div class="form-container">
     <h3 class="mb-4 text-center">Mark Customer as Paid</h3>
     <form id="paidForm">
       <!-- Customer Dropdown -->
       <div class="mb-3">
         <label for="paidCustomer" class="form-label">Select Customer</label>
-       <select id="paidCustomer" name="customerName" class="form-select" required>
-            <option selected disabled value="">Select Customer</option>
-            <option value="Rahul">Rahul</option>
-            <option value="Manmohan">Manmohan</option>
-            <option value="Ujwal">Ujwal</option>
-            <option value="Harsh">Harsh</option>
-            <option value="Pardeep">Pardeep</option>
-            <option value="Mikku ke Mummy">Mikku ke Mummy</option>
-            <option value="Shaurya">Shaurya</option>
-            <option value="Rakesh">Rakesh</option>
-            <option value="Pardeep Pahalad">Pardeep Pahalad</option>
-            <option value="Sonhali">Sonhali</option>
-            <option value="Suraj">Suraj</option>
-            <option value="Ajay">Ajay</option>
-            <option value="Ayush">Ayush</option>
-            <option value="Chandan">Chandan</option>
-            <option value="Bhabi">Bhabi</option>
-            <option value="Dayachan-Ravi">Dayachan-Ravi</option>
-            <option value="Amit">Amit</option>
-            <option value="Vidushi Education">Vidushi Education</option>
-            <option value="Preet">Preet</option>
+        <select id="paidCustomer" name="customer" class="form-select" required>
+          <option selected disabled value="">Select Customer</option>
+          <option value="Rahul">Rahul</option>
+          <option value="Manmohan">Manmohan</option>
+          <option value="Ujwal">Ujwal</option>
+          <option value="Harsh">Harsh</option>
+          <option value="Pardeep">Pardeep</option>
+          <option value="Mikku ke Mummy">Mikku ke Mummy</option>
+          <option value="Shaurya">Shaurya</option>
+          <option value="Rakesh">Rakesh</option>
+          <option value="Pardeep Pahalad">Pardeep Pahalad</option>
+          <option value="Sonhali">Sonhali</option>
+          <option value="Suraj">Suraj</option>
+          <option value="Ajay">Ajay</option>
+          <option value="Ayush">Ayush</option>
+          <option value="Chandan">Chandan</option>
+          <option value="Bhabi">Bhabi</option>
+          <option value="Dayachan-Ravi">Dayachan-Ravi</option>
+          <option value="Amit">Amit</option>
+          <option value="Vidushi Education">Vidushi Education</option>
+          <option value="Preet">Preet</option>
         </select>
+      </div>
+
+      <!-- Paid Date -->
+      <div class="mb-3">
+        <label for="paidDate" class="form-label">Paid Date</label>
+        <input type="date" id="paidDate" name="paidDate" class="form-control" required>
 
       </div>
 
-      
+      <!-- Paid Amount -->
+      <div class="mb-3">
+        <label for="paidAmount" class="form-label">Paid Amount</label>
+        <input type="number" id="paidAmount" name="paidAmount" class="form-control" placeholder="Enter Paid Amount" required>
+
+      </div>
 
       <button type="submit" class="btn btn-primary w-100">Mark as Paid</button>
     </form>
-    <div id="feedback" class="mt-3 text-center"></div>
+    
   </div>
 
   <!-- Error Modal -->
-<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content border-danger">
-      <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title" id="errorModalLabel">Error</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Failed to mark the customer as Paid. Please try again later.
+  <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-danger">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="errorModalLabel">Error</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Failed to mark the customer as Paid. Please try again later.
+        </div>
       </div>
     </div>
   </div>
+  <!-- Custom Alert Popup -->
+<div id="customAlert" style="
+  display: none;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border: 2px solid #4CAF50;
+  color: #333;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  z-index: 9999;
+  font-size: 16px;
+  text-align: center;
+">
+  <span id="alertMessage">✅ Customer marked as Paid!</span>
 </div>
 
 
   <!-- JavaScript Section -->
+
   <script src="config.js"></script>
   <script>
-    // Get references to the form and feedback element
+    function showCustomAlert(message, isSuccess = true) {
+    const alertBox = document.getElementById('customAlert');
+    const alertMessage = document.getElementById('alertMessage');
+
+    alertMessage.innerText = message;
+    alertBox.style.borderColor = isSuccess ? '#4CAF50' : '#f44336';
+    alertBox.style.display = 'block';
+
+    setTimeout(() => {
+      alertBox.style.display = 'none';
+    }, 2000); // hide after 3 seconds
+  }
+
+  </script>
+  <script>
+    // Auto-fill today's date
+    const dateInput = document.getElementById("paidDate");
+    const today = new Date().toISOString().split("T")[0];
+    dateInput.value = today;
+
+    // Form Submission
     const paidForm = document.getElementById('paidForm');
-    const feedbackEl = document.getElementById('feedback');
 
     paidForm.addEventListener('submit', function(e) {
-      e.preventDefault();
+    e.preventDefault();
 
-      const selectedCustomer = document.getElementById('paidCustomer').value;
-      if (!selectedCustomer) {
-        alert('Please select a customer.');
-        return;
-      }
+    const selectedCustomer = document.getElementById('paidCustomer').value;
+    const paidDate = document.getElementById('paidDate').value;
+    const paidAmount = document.getElementById('paidAmount').value;
 
-      // Prepare data payload for marking customer as paid
-      const data = {
-        action: "markPaid",
-        customerName: selectedCustomer
-      };
+    if (!selectedCustomer || !paidDate || !paidAmount) {
+      alert('Please fill all fields.');
+      return;
+    }
 
-      // Disable the button while processing (optional)
-      const submitButton = paidForm.querySelector('button');
-      submitButton.disabled = true;
-      submitButton.textContent = "Processing...";
+    const formData = new FormData();
+    formData.append('action', 'markPaid');
+    formData.append('customerName', selectedCustomer);
+    formData.append('paidDate', paidDate);
+    formData.append('paidAmount', paidAmount);
 
-      fetch(CONFIG.GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
+    const submitButton = paidForm.querySelector('button');
+    submitButton.disabled = true;
+    submitButton.textContent = "Processing...";
+
+    fetch(CONFIG.GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      body: formData
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Server Response:", data);
+
+        setTimeout(() => {
+          if (data.result === 'success') {
+            showCustomAlert("✅ Customer marked as Paid!", true);
+            paidForm.reset();
+
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.value = today;
+          } else {
+            // You can optionally show custom error here too
+            showCustomAlert("✅ Customer marked as Paid!", false);
+            // showCustomAlert("❌ Failed to mark as paid.\n" + (data.error || "Unknown error occurred"), false);
+          }
+        }, 1000);
       })
-      .then(res => res.text())
-      .then(response => {
-        // You can check the response if needed (response should be "Success" if all is well)
-        feedbackEl.textContent = "Customer marked as Paid successfully!";
-        paidForm.reset();
-      })
+
       .catch(err => {
-        console.error("Error:", err);
+        console.error("Fetch Error:", err);
         const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
         errorModal.show();
-        feedbackEl.textContent = "There was an error marking the customer as Paid.";
-        })
-
+      })
       .finally(() => {
         submitButton.disabled = false;
         submitButton.textContent = "Mark as Paid";
       });
-    });
+  });
+
+
   </script>
 
   <!-- Bootstrap JS -->
