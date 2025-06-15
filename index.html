@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>More actions
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -56,7 +56,7 @@
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid d-flex flex-wrap">
       <h1 class="me-auto fs-4">Karan Enterprises</h1>
-    
+
       <div class="ms-auto text-end">
         <div id="current-date" class="fs-6"></div>
         <div id="current-time" class="fs-5 fw-bold"></div>
@@ -72,12 +72,12 @@
       <div class="form-content p-4 border rounded shadow">
         <h3 class="mb-4 text-center"><b>Today's Entry </b></h3>
         <form id="dataForm" name="google-sheet">
-          
+
           <!-- ✅ Customer Search and Selection -->
           <div class="mb-3">
             <h5>Select Customer Name</h5>
             <input type="text" id="customerSearch" class="form-control mb-2" placeholder="Search customer..."/>
-      
+
             <div id="customer-box" class="border p-2 rounded customer-box">
               <!-- Customer List -->
               <div class="customer-item p-2 border-bottom text-center" onclick="selectCustomer(this)">Rahul</div>
@@ -174,7 +174,7 @@
 
 <!-- ✅ Toast Notification -->
 <div class="position-fixed top-0 start-50 translate-middle-x p-3 mt-3" style="z-index: 1055">
-  
+
   <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert">
     <div class="d-flex">
       <div class="toast-body">
@@ -243,6 +243,7 @@
       progressBar.style.width = `${progress}%`;
       progressBar.textContent = `${progress}%`;
       if (progress >= 100) clearInterval(interval);
+    
     }, 60); // ~6 sec
 
     fetch(scriptURL, { method: 'POST', body: new FormData(form) })
